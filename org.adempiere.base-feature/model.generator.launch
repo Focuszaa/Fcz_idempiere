@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.pde.ui.RuntimeWorkbench">
+<booleanAttribute key="append.args" value="true"/>
+<stringAttribute key="application" value="org.adempiere.base.ModelGeneratorApplication"/>
+<booleanAttribute key="askclear" value="true"/>
+<booleanAttribute key="automaticAdd" value="false"/>
+<booleanAttribute key="automaticValidate" value="false"/>
+<stringAttribute key="bootstrap" value=""/>
+<stringAttribute key="checked" value="[NONE]"/>
+<booleanAttribute key="clearConfig" value="true"/>
+<booleanAttribute key="clearws" value="false"/>
+<booleanAttribute key="clearwslog" value="false"/>
+<stringAttribute key="configLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.pde.core/model.generator"/>
+<booleanAttribute key="default" value="false"/>
+<booleanAttribute key="includeOptional" value="true"/>
+<stringAttribute key="location" value="${workspace_loc}/../runtime-model.generator"/>
+<stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -arch ${target.arch} -nl ${target.nl} -consoleLog"/>
+<stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${workspace_loc}"/>
+<stringAttribute key="pde.version" value="3.3"/>
+<stringAttribute key="product" value="org.adempiere.server.server_product"/>
+<stringAttribute key="selected_target_plugins" value="bcpkix@default:default,bcprov@default:default,com.itextpdf@default:default,com.jaspersoft.studio.bundles.barbecue@default:default,com.sun.mail.javax.mail@default:default,groovy-all@default:default,javax.activation@default:default,javax.annotation-api@default:default,javax.ejb@default:default,javax.inject@default:default,javax.jms@default:default,javax.management.j2ee-api@default:default,javax.transaction@default:false,javax.xml.rpc@default:default,javax.xml.soap@default:default,javax.xml@default:default,net.sf.supercsv.super-csv@default:default,org.apache.activemq.activemq-core@default:default,org.apache.activemq.kahadb@default:default,org.apache.ant*1.10.1.v20170504-0840@default:default,org.apache.ant*1.9.6.v201510161327@default:default,org.apache.commons.codec*1.6.0.v201305230611@default:default,org.apache.commons.codec*1.9.0.v20170208-1614@default:default,org.apache.commons.collections@default:default,org.apache.commons.logging@default:default,org.apache.commons.net@default:default,org.apache.felix.scr@default:default,org.apache.poi@default:default,org.apache.servicemix.bundles.cglib@default:default,org.apache.xerces@default:default,org.apache.xml.resolver@default:default,org.apache.xml.serializer@default:default,org.cryptacular@default:default,org.eclipse.ant.core*3.3.1.v20150123-1553@default:default,org.eclipse.ant.core*3.5.0.v20170509-2149@default:default,org.eclipse.core.contenttype*3.4.200.v20140207-1251@default:default,org.eclipse.core.contenttype*3.6.0.v20170207-1037@default:default,org.eclipse.core.jobs*3.6.1.v20141014-1248@default:default,org.eclipse.core.jobs*3.9.3.v20180115-1757@default:default,org.eclipse.core.runtime*3.10.0.v20140318-2214@default:true,org.eclipse.core.runtime*3.13.0.v20170207-1030@default:true,org.eclipse.core.variables*3.2.800.v20130819-1716@default:default,org.eclipse.core.variables*3.4.0.v20170113-2056@default:default,org.eclipse.equinox.app*1.3.200.v20130910-1609@default:default,org.eclipse.equinox.app*1.3.400.v20150715-1528@default:default,org.eclipse.equinox.common*3.6.200.v20130402-1505@2:true,org.eclipse.equinox.common*3.9.0.v20170207-1454@2:true,org.eclipse.equinox.ds*1.4.200.v20131126-2331@1:true,org.eclipse.equinox.ds*1.5.0.v20170307-1429@1:true,org.eclipse.equinox.http.registry*1.1.300.v20130402-1529@default:default,org.eclipse.equinox.http.registry*1.1.400.v20150715-1528@default:default,org.eclipse.equinox.preferences*3.5.200.v20140224-1527@default:default,org.eclipse.equinox.preferences*3.7.0.v20170126-2132@default:default,org.eclipse.equinox.registry*3.5.400.v20140428-1507@default:default,org.eclipse.equinox.registry*3.7.0.v20170222-1344@default:default,org.eclipse.equinox.util@default:default,org.eclipse.jdt.core.compiler.batch@default:default,org.eclipse.jetty.osgi-servlet-api@default:default,org.eclipse.osgi*3.10.2.v20150203-1939@-1:true,org.eclipse.osgi*3.12.100.v20180210-1608@-1:true,org.eclipse.osgi*3.12.50.v20170928-1321@-1:true,org.eclipse.osgi.compatibility.plugins*1.0.0.v20131023-1243@default:false,org.eclipse.osgi.compatibility.plugins*1.1.0.v20170516-1513@default:false,org.eclipse.osgi.compatibility.state*1.0.1.v20140709-1414@default:false,org.eclipse.osgi.compatibility.state*1.1.0.v20170516-1513@default:false,org.eclipse.osgi.services*3.4.0.v20140312-2051@default:default,org.eclipse.osgi.services*3.6.0.v20170228-1906@default:default,org.eclipse.osgi.util@default:default,org.hamcrest.core@default:default,org.jfree.chart-osgi@default:default,org.jfree.jcommon-osgi@default:default,org.junit@default:default,org.krysalis.barcode4j@default:default,org.passay@default:default,org.restlet@default:default,org.slf4j.api*1.7.10.v20170428-1633@default:default,org.slf4j.api*1.7.2.v20121108-1250@default:default,org.slf4j.jcl@default:default"/>
+<stringAttribute key="selected_workspace_plugins" value="org.adempiere.base@default:default,org.adempiere.extend@default:false,org.adempiere.install@default:default,org.adempiere.plugin.utils@default:default,org.adempiere.ui@default:default,org.apache.ecs@default:default,org.compiere.db.oracle.provider@default:default,org.compiere.db.postgresql.provider@default:default,org.idempiere.fitrecorder@default:default,org.slf4j.jdk14@default:false"/>
+<booleanAttribute key="show_selected_only" value="false"/>
+<stringAttribute key="templateConfig" value="${target_home}/configuration/config.ini"/>
+<booleanAttribute key="tracing" value="false"/>
+<booleanAttribute key="useCustomFeatures" value="false"/>
+<booleanAttribute key="useDefaultConfig" value="true"/>
+<booleanAttribute key="useDefaultConfigArea" value="true"/>
+<booleanAttribute key="useProduct" value="false"/>
+</launchConfiguration>
