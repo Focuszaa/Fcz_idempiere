@@ -400,7 +400,9 @@ public class CalloutOrder extends CalloutEngine
 						mTab.setValue("PaymentRule", s);
 					//	Payment Term
 					ii = new Integer(rs.getInt(IsSOTrx ? "C_PaymentTerm_ID" : "PO_PaymentTerm_ID"));
-					if (!rs.wasNull())
+					//MPo, 27/8/2016 If customer default=null, propagate to SO to force sales entry to select Payment term
+					//--if (!rs.wasNull())
+					//
 						mTab.setValue("C_PaymentTerm_ID", ii);
 					//	InvoiceRule
 					s = rs.getString("InvoiceRule");
@@ -1051,7 +1053,6 @@ public class CalloutOrder extends CalloutEngine
 			|| mField.getColumnName().equals("M_Product_ID"))
 			&& !"N".equals(Env.getContext(ctx, WindowNo, "DiscountSchema")))
 		{
-			int C_BPartner_ID = Env.getContextAsInt(ctx, WindowNo, "C_BPartner_ID");
 			if (mField.getColumnName().equals("QtyEntered"))
 				QtyOrdered = MUOMConversion.convertProductFrom (ctx, M_Product_ID,
 					C_UOM_To_ID, QtyEntered);

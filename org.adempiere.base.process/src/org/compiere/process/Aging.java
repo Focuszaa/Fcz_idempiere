@@ -136,13 +136,24 @@ public class Aging extends SvrProcess
 			}
 		}
 		sql.append(",oi.C_Activity_ID,oi.C_Campaign_ID,oi.C_Project_ID,oi.AD_Org_ID ");	//	14..17
+		//MPo,27/5/17 Add Dunning Grace Date 
+		sql.append(",oi.DunningGrace"); // 18
+		//
+		//MPo,6/9/17 Add InvoiceNo, InvoiceDate
+		sql.append(",oi.POReference"); // 19
+		sql.append(",oi.DateInvoiced"); // 20
+		//
+		
 		if (!p_DateAcct)//FR 1933937
 		{
 			sql.append(" FROM RV_OpenItem oi");
 		}
 		else
 		{
-			sql.append(" FROM RV_OpenItemToDate oi");
+			//MPo,27/5/17 Replace view to support DunningGrace
+			//sql.append(" FROM RV_OpenItemToDate oi");
+			sql.append(" FROM ZI_RV_OpenItemToDate oi"); // 18
+			//
 		}
 		
 		sql.append(" INNER JOIN C_BPartner bp ON (oi.C_BPartner_ID=bp.C_BPartner_ID) "
@@ -208,6 +219,12 @@ public class Aging extends SvrProcess
 				int C_Campaign_ID = p_IsListInvoices ? rs.getInt(15) : 0;
 				int C_Project_ID = p_IsListInvoices ? rs.getInt(16) : 0;
 				int AD_Org_ID = rs.getInt(17);
+				//MPo, 27/5/17 Add Dunning Grace Date
+				Timestamp DunningGrace = rs.getTimestamp(18);
+				//
+				//MPo, 6/9/17 Add InvoiceNo, InvoiceDate
+				String POReference = rs.getString(19);
+				Timestamp DateInvoiced = rs.getTimestamp(20);
 				
 				rows++;
 				//	New Aging Row
@@ -231,6 +248,13 @@ public class Aging extends SvrProcess
 					aging.setC_Campaign_ID(C_Campaign_ID);
 					aging.setC_Project_ID(C_Project_ID);
 					aging.setDateAcct(p_DateAcct);
+					//MPo, 27/5/17 Add DunningGrace
+					aging.setZI_DunningGrace(DunningGrace);
+					//
+					//MPo, 6/9/17 Add InvoiceDate, InvoiceNo
+					aging.setZI_DateInvoiced(DateInvoiced);
+					aging.setZI_POReference(POReference);
+					//
 				}
 				//	Fill Buckets
 				aging.add (DueDate, DaysDue, GrandTotal, OpenAmt);

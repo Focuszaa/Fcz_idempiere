@@ -558,7 +558,6 @@ public class CalloutInvoice extends CalloutEngine
 			|| mField.getColumnName().equals("M_Product_ID")) 
 			&& !"N".equals(Env.getContext(ctx, WindowNo, "DiscountSchema")))
 		{
-			int C_BPartner_ID = Env.getContextAsInt(ctx, WindowNo, "C_BPartner_ID");
 			if (mField.getColumnName().equals("QtyEntered"))
 				QtyInvoiced = MUOMConversion.convertProductFrom (ctx, M_Product_ID, 
 					C_UOM_To_ID, QtyEntered);
@@ -572,6 +571,7 @@ public class CalloutInvoice extends CalloutEngine
 			I_C_InvoiceLine invoiceLine = GridTabWrapper.create(mTab, I_C_InvoiceLine.class);
 			pp.setInvoiceLine(invoiceLine, null);
 			pp.setM_PriceList_ID(M_PriceList_ID);
+			pp.setQty(QtyInvoiced);
 			int	M_PriceList_Version_ID = Env.getContextAsInt(ctx, WindowNo, "M_PriceList_Version_ID");
 			pp.setM_PriceList_Version_ID(M_PriceList_Version_ID);
 			//
