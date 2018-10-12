@@ -1897,6 +1897,37 @@ DataStatusListener, IADTabpanel, IdSpace, IFieldEditorContainer
 		}
 		super.onPageDetached(page);
 	}
+	
+	protected void onClientInfo() {
+		if (!uiCreated || gridTab == null) return;
+		int numCols=gridTab.getNumColumns();
+    	if (numCols <= 0) {
+    		numCols=6;
+    	}
+
+    	if (ClientInfo.maxWidth(ClientInfo.EXTRA_SMALL_WIDTH-1)) {
+    		if (numCols > 3) {
+    			numCols=3;
+    		}
+    	} else if (ClientInfo.maxWidth(ClientInfo.MEDIUM_WIDTH-1)) {
+    		if (numCols > 6) {
+    			numCols=6;
+    		}
+    	}
+		if (numCols > 0 && numCols != numberOfFormColumns) {
+			createUI(true);
+			dynamicDisplay(0);
+		}
+	};
+	
+	protected boolean isMobile() {
+		return ClientInfo.isMobile();
+	}
+	@Override
+	public void editorTraverse(Callback<WEditor> editorTaverseCallback) {
+		editorTraverse(editorTaverseCallback, editors);
+		
+	}
 
 	void savePreference(String attribute, String value)
 	{

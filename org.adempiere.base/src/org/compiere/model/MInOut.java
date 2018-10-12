@@ -2336,12 +2336,31 @@ public class MInOut extends X_M_InOut implements DocAction
 			String description = mMatchPO.getDescription();
 			if (description == null || !description.endsWith("<-)"))
 			{
+				MMatchPO matchInv = null;
+				if (mMatchPO.getC_InvoiceLine_ID() > 0)
+				{
+					matchInv = new MMatchPO (getCtx(), 0, get_TrxName());					 					
+					matchInv.setC_OrderLine_ID(mMatchPO.getC_OrderLine_ID());
+					matchInv.setC_InvoiceLine_ID(mMatchPO.getC_InvoiceLine_ID());
+					matchInv.setM_InOutLine_ID(0);
+					matchInv.setAD_Org_ID(mMatchPO.getAD_Org_ID());
+					matchInv.setQty(mMatchPO.getQty());
+					matchInv.setDateAcct(reversalDate);
+					matchInv.setDateTrx(mMatchPO.getDateTrx());
+					matchInv.setM_AttributeSetInstance_ID(mMatchPO.getM_AttributeSetInstance_ID());
+					matchInv.setM_Product_ID(mMatchPO.getM_Product_ID());
+				}
 				if (!mMatchPO.reverse(reversalDate))
 				{
 					log.log(Level.SEVERE, "Failed to create reversal for match purchase order " + mMatchPO.getDocumentNo());
 					return false;
 				}
 				addDocsPostProcess(new MMatchPO(Env.getCtx(), mMatchPO.getReversal_ID(), get_TrxName()));
+				if (matchInv != null)
+				{
+					matchInv.saveEx();
+					addDocsPostProcess(matchInv);
+				}
 			}
 		}
 		return true;

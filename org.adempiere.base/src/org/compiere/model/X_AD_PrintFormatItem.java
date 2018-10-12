@@ -30,7 +30,8 @@ public class X_AD_PrintFormatItem extends PO implements I_AD_PrintFormatItem, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20171031L;
+	private static final long serialVersionUID = 20171122L;
+	//private static final long serialVersionUID = 20171031L;
 
     /** Standard Constructor */
     public X_AD_PrintFormatItem (Properties ctx, int AD_PrintFormatItem_ID, String trxName)
@@ -69,6 +70,8 @@ public class X_AD_PrintFormatItem extends PO implements I_AD_PrintFormatItem, I_
 			setIsRelativePosition (true);
 // Y
 			setIsRunningTotal (false);
+			setIsSecondaryHeader (false);
+// N
 			setIsSetNLPosition (false);
 			setIsSummarized (false);
 			setIsSuppressNull (false);
@@ -972,6 +975,30 @@ public class X_AD_PrintFormatItem extends PO implements I_AD_PrintFormatItem, I_
 	public boolean isRunningTotal () 
 	{
 		Object oo = get_Value(COLUMNNAME_IsRunningTotal);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set IsSecondaryHeader.
+		@param IsSecondaryHeader 
+		The column is printed on the next page as a header for its set
+	  */
+	public void setIsSecondaryHeader (boolean IsSecondaryHeader)
+	{
+		set_Value (COLUMNNAME_IsSecondaryHeader, Boolean.valueOf(IsSecondaryHeader));
+	}
+
+	/** Get IsSecondaryHeader.
+		@return The column is printed on the next page as a header for its set
+	  */
+	public boolean isSecondaryHeader () 
+	{
+		Object oo = get_Value(COLUMNNAME_IsSecondaryHeader);
 		if (oo != null) 
 		{
 			 if (oo instanceof Boolean) 

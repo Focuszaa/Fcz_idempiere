@@ -1980,6 +1980,10 @@ public class X_C_Payment extends PO implements I_C_Payment, I_Persistent
 	public static final String TENDERTYPE_Account = "T";
 	/** Cash = X */
 	public static final String TENDERTYPE_Cash = "X";
+	//MPo, 18/8/2016 Add tender type "Z" for Outsourced Check payment
+	public static final String TENDERTYPE_CheckOutsourced = "Z";
+	//
+	
 	/** Set Tender type.
 		@param TenderType 
 		Method of Payment
