@@ -42,7 +42,8 @@ public class MSysConfig extends X_AD_SysConfig
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8623809160538454497L;
+	private static final long serialVersionUID = 2617379167881737860L;
+	//private static final long serialVersionUID = 8623809160538454497L;
 
 	public static final String ADDRESS_VALIDATION = "ADDRESS_VALIDATION";
     public static final String ALERT_SEND_ATTACHMENT_AS_XLS = "ALERT_SEND_ATTACHMENT_AS_XLS";

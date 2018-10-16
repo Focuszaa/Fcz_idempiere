@@ -129,6 +129,11 @@ public class MAssetAddition extends X_A_Asset_Addition
 			assetAdd.setA_Asset_ID(match.getC_InvoiceLine().getA_Asset_ID());
 			assetAdd.setA_CreateAsset(false);
 		}
+		//MPo, 14/8/18 Transfer PrCtr, CCtr, FArea to AssetAddition
+		assetAdd.setUser1_ID(match.getC_InvoiceLine().getUser1_ID());
+		assetAdd.setUser2_ID(match.getC_InvoiceLine().getUser2_ID());
+		assetAdd.setC_Activity_ID(match.getC_InvoiceLine().getC_Activity_ID());
+		//MPo
 		assetAdd.saveEx();
 		return assetAdd;
 	}

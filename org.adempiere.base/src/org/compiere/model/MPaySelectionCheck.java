@@ -114,7 +114,10 @@ public class MPaySelectionCheck extends X_C_PaySelectionCheck
 			PaymentRule = PAYMENTRULE_DirectDeposit;
 		else if (payment.getTenderType().equals(X_C_Payment.TENDERTYPE_Cash))
 			PaymentRule = PAYMENTRULE_Cash;
-
+		//MPo, 18/8/2016 Add Payment rule 'Z' Check Outsourcing 
+		else if (payment.getTenderType().equals(X_C_Payment.TENDERTYPE_CheckOutsourced))
+			PaymentRule = PAYMENTRULE_CheckOutsourced;
+		//
 		//	Create new PaySelection
 		MPaySelection ps = new MPaySelection(ctx, 0, trxName);
 		ps.setAD_Org_ID(payment.getAD_Org_ID());
@@ -139,6 +142,8 @@ public class MPaySelectionCheck extends X_C_PaySelectionCheck
 		psc.setProcessed(true);
 		// afalcone - [ 1871567 ] Wrong value in Payment document
 		psc.setIsGeneratedDraft( ! payment.isProcessed() );
+		//MPo, 01/11/2016
+		psc.setUser1_ID(payment.getUser1_ID());
 		//
 		psc.saveEx();
 		
@@ -309,6 +314,11 @@ public class MPaySelectionCheck extends X_C_PaySelectionCheck
 				else if (check.getPaymentRule().equals(PAYMENTRULE_DirectDeposit)
 					|| check.getPaymentRule().equals(PAYMENTRULE_DirectDebit))
 					payment.setBankACH(check);
+				//MPo, 18/8/2016 Add Payment Rule 'Z' Check Outsourced
+				else if (check.getPaymentRule().equals(PAYMENTRULE_CheckOutsourced))
+					payment.setBankCash(check.getParent().getC_BankAccount_ID(), false, X_C_Payment.TENDERTYPE_CheckOutsourced);
+				//	payment.setTenderType(X_C_Payment.TENDERTYPE_CheckOutsourced);
+				//
 				else
 				{
 					s_log.log(Level.SEVERE, "Unsupported Payment Rule=" + check.getPaymentRule());
@@ -321,6 +331,9 @@ public class MPaySelectionCheck extends X_C_PaySelectionCheck
 				payment.setDateTrx(check.getParent().getPayDate());
 				payment.setDateAcct(payment.getDateTrx()); // globalqss [ 2030685 ]
 				payment.setC_BPartner_ID(check.getC_BPartner_ID());
+				//MPo,01/11/2016 Add PrCtr to Payment
+				payment.setUser1_ID(check.getUser1_ID());
+				//
 				//	Link to Batch
 				if (batch != null)
 				{
@@ -558,6 +571,9 @@ public class MPaySelectionCheck extends X_C_PaySelectionCheck
 		setC_PaySelection_ID (line.getC_PaySelection_ID());
 		int C_BPartner_ID = line.getInvoice().getC_BPartner_ID();
 		setC_BPartner_ID (C_BPartner_ID);
+		//MPo,01/11/2016 Add PrCtr
+		int User1_ID = line.getUser1_ID();
+		setUser1_ID(User1_ID);
 		//
 		if (X_C_Order.PAYMENTRULE_DirectDebit.equals(PaymentRule))
 		{
