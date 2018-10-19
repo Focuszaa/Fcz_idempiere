@@ -115,8 +115,8 @@ public class MPaySelectionCheck extends X_C_PaySelectionCheck
 		else if (payment.getTenderType().equals(X_C_Payment.TENDERTYPE_Cash))
 			PaymentRule = PAYMENTRULE_Cash;
 		//MPo, 18/8/2016 Add Payment rule 'Z' Check Outsourcing 
-		else if (payment.getTenderType().equals(X_C_Payment.TENDERTYPE_CheckOutsourced))
-			PaymentRule = PAYMENTRULE_CheckOutsourced;
+		else if (payment.getTenderType().equals(X_C_Payment.TENDERTYPE_CheckOutsourcedHSBCIFile))
+			PaymentRule = PAYMENTRULE_CheckOutsourcedHSBCIFile;
 		//
 		//	Create new PaySelection
 		MPaySelection ps = new MPaySelection(ctx, 0, trxName);
@@ -145,6 +145,7 @@ public class MPaySelectionCheck extends X_C_PaySelectionCheck
 		//MPo, 01/11/2016
 		psc.setUser1_ID(payment.getUser1_ID());
 		//
+		
 		psc.saveEx();
 		
 		//	Create new PaySelection Line
@@ -315,8 +316,8 @@ public class MPaySelectionCheck extends X_C_PaySelectionCheck
 					|| check.getPaymentRule().equals(PAYMENTRULE_DirectDebit))
 					payment.setBankACH(check);
 				//MPo, 18/8/2016 Add Payment Rule 'Z' Check Outsourced
-				else if (check.getPaymentRule().equals(PAYMENTRULE_CheckOutsourced))
-					payment.setBankCash(check.getParent().getC_BankAccount_ID(), false, X_C_Payment.TENDERTYPE_CheckOutsourced);
+				else if (check.getPaymentRule().equals(PAYMENTRULE_CheckOutsourcedHSBCIFile))
+					payment.setBankCash(check.getParent().getC_BankAccount_ID(), false, X_C_Payment.TENDERTYPE_CheckOutsourcedHSBCIFile);
 				//	payment.setTenderType(X_C_Payment.TENDERTYPE_CheckOutsourced);
 				//
 				else
@@ -574,6 +575,12 @@ public class MPaySelectionCheck extends X_C_PaySelectionCheck
 		//MPo,01/11/2016 Add PrCtr
 		int User1_ID = line.getUser1_ID();
 		setUser1_ID(User1_ID);
+		//
+		//MPo,17/10/18 Add Remit-To BP and Remit-To Location
+		int ZI_Pay_BPartner_ID = line.getZI_Pay_BPartner_ID();
+		setZI_Pay_BPartner_ID(ZI_Pay_BPartner_ID);
+		int ZI_Pay_Location_ID = line.getZI_Pay_Location_ID();
+		setZI_Pay_Location_ID(ZI_Pay_Location_ID);
 		//
 		if (X_C_Order.PAYMENTRULE_DirectDebit.equals(PaymentRule))
 		{
