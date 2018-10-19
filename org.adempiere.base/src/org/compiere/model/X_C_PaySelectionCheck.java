@@ -31,7 +31,7 @@ public class X_C_PaySelectionCheck extends PO implements I_C_PaySelectionCheck, 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20171031L;
+	private static final long serialVersionUID = 20181017L;
 
     /** Standard Constructor */
     public X_C_PaySelectionCheck (Properties ctx, int C_PaySelectionCheck_ID, String trxName)
@@ -376,8 +376,8 @@ public class X_C_PaySelectionCheck extends PO implements I_C_PaySelectionCheck, 
 	public static final String PAYMENTRULE_DirectDebit = "D";
 	/** Mixed POS Payment = M */
 	public static final String PAYMENTRULE_MixedPOSPayment = "M";
-	/** Check Outsourced = Z */
-	public static final String PAYMENTRULE_CheckOutsourced = "Z";
+	/** Check Outsourced (HSBC iFile) = Z */
+	public static final String PAYMENTRULE_CheckOutsourcedHSBCIFile = "Z";
 	/** Set Payment Rule.
 		@param PaymentRule 
 		How you pay the invoice
@@ -486,5 +486,61 @@ public class X_C_PaySelectionCheck extends PO implements I_C_PaySelectionCheck, 
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
+	}
+
+	public org.compiere.model.I_C_BPartner getZI_Pay_BPartner() throws RuntimeException
+    {
+		return (org.compiere.model.I_C_BPartner)MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
+			.getPO(getZI_Pay_BPartner_ID(), get_TrxName());	}
+
+	/** Set Payee Partner.
+		@param ZI_Pay_BPartner_ID 
+		Business Partner responsible for the payment (Alternative payee)
+	  */
+	public void setZI_Pay_BPartner_ID (int ZI_Pay_BPartner_ID)
+	{
+		if (ZI_Pay_BPartner_ID < 1) 
+			set_Value (COLUMNNAME_ZI_Pay_BPartner_ID, null);
+		else 
+			set_Value (COLUMNNAME_ZI_Pay_BPartner_ID, Integer.valueOf(ZI_Pay_BPartner_ID));
+	}
+
+	/** Get Payee Partner.
+		@return Business Partner responsible for the payment (Alternative payee)
+	  */
+	public int getZI_Pay_BPartner_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_ZI_Pay_BPartner_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public org.compiere.model.I_C_BPartner_Location getZI_Pay_Location() throws RuntimeException
+    {
+		return (org.compiere.model.I_C_BPartner_Location)MTable.get(getCtx(), org.compiere.model.I_C_BPartner_Location.Table_Name)
+			.getPO(getZI_Pay_Location_ID(), get_TrxName());	}
+
+	/** Set Payee Location.
+		@param ZI_Pay_Location_ID 
+		Business Partner Location for payment (Alternative Payee)
+	  */
+	public void setZI_Pay_Location_ID (int ZI_Pay_Location_ID)
+	{
+		if (ZI_Pay_Location_ID < 1) 
+			set_Value (COLUMNNAME_ZI_Pay_Location_ID, null);
+		else 
+			set_Value (COLUMNNAME_ZI_Pay_Location_ID, Integer.valueOf(ZI_Pay_Location_ID));
+	}
+
+	/** Get Payee Location.
+		@return Business Partner Location for payment (Alternative Payee)
+	  */
+	public int getZI_Pay_Location_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_ZI_Pay_Location_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 }

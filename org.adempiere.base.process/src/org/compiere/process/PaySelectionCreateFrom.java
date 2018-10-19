@@ -157,6 +157,9 @@ public class PaySelectionCreateFrom extends SvrProcess
 			    .append(",i.C_Currency_ID, ?,?,i.C_ConversionType_ID,i.AD_Client_ID,i.AD_Org_ID) AS WriteOffAmt ")	//	6 ##p6/p7 Currency_To,PayDate
 			//MPo,01/11/2016 Add PrCtr
 			.append(", User1_ID ") // 7
+			//MPo,17/10/18 Add Remit-To BP and Remit-To Location
+			.append(", ZI_Pay_BPartner_ID, ZI_Pay_Location_ID " ) // p8/p9 Remit-To BP, Remit-To Location
+			//
 			.append("FROM C_Invoice_v i WHERE ");
 		if (X_C_Order.PAYMENTRULE_DirectDebit.equals(p_PaymentRule))
 			sql.append("IsSOTrx='Y'");
@@ -302,12 +305,19 @@ public class PaySelectionCreateFrom extends SvrProcess
 				//MPo,10/1/17 Resolve merge conflict with BigDecimal WriteOffAmt = rs.getBigDecimal(6);
 				int User1_ID = rs.getInt(7);
 				//
+				//MPo,17/10/18 Add Remit-To BP and Remit-To Location
+				int ZI_Pay_BPartner_ID = rs.getInt(8);
+				int ZI_Pay_Location_ID = rs.getInt(9);
 				lines++;
 				MPaySelectionLine pselLine = new MPaySelectionLine (psel, lines*10, PaymentRule);
 				pselLine.setInvoice (C_Invoice_ID, isSOTrx,
 					PayAmt, PayAmt.subtract(DiscountAmt).subtract(WriteOffAmt), DiscountAmt, WriteOffAmt);
 					//MPo,01/11/2016 Add PrCtr
 					pselLine.setUser1_ID(User1_ID);
+					//
+					//MPo,17/10/18 Add Remit-To BP and Remit-To Location
+					pselLine.setZI_Pay_BPartner_ID(ZI_Pay_BPartner_ID);
+					pselLine.setZI_Pay_Location_ID(ZI_Pay_Location_ID);
 					//
 				if (!pselLine.save())
 				{
