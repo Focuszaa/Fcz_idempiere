@@ -153,7 +153,8 @@ Require-Bundle: org.adempiere.base;bundle-version="0.0.0",
  org.junit;bundle-version="0.0.0",
  org.apache.commons.io;bundle-version="0.0.0",
  com.itextpdf;bundle-version="0.0.0",
- org.atmosphere.runtime;bundle-version="0.0.0"
+ org.atmosphere.runtime;bundle-version="0.0.0",
+ org.adempiere.base.callout
 Bundle-Activator: org.adempiere.webui.WebUIActivator
 Eclipse-ExtensibleAPI: true
 Web-ContextPath: webui

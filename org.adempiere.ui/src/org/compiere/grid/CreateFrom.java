@@ -87,8 +87,13 @@ public abstract class CreateFrom implements ICreateFrom
 	 *  @param C_BPartner_ID BPartner
 	 *  @param forInvoice for invoice
 	 */
-	protected ArrayList<KeyNamePair> loadOrderData (int C_BPartner_ID, boolean forInvoice, boolean sameWarehouseOnly)
+	//MPo, 18/7/2016 Add PrCtr to loadOrderData
+	//-protected ArrayList<KeyNamePair> loadOrderData (int C_BPartner_ID, boolean forInvoice, boolean sameWarehouseOnly)
+	protected ArrayList<KeyNamePair> loadOrderData (int C_BPartner_ID, boolean forInvoice, boolean sameWarehouseOnly, int User1_ID)
 	{
+		//MPo, 18/7/2016
+		//System.out.println("This is CreateFrom.java");
+		//
 		ArrayList<KeyNamePair> list = new ArrayList<KeyNamePair>();
 
 		String isSOTrxParam = isSOTrx ? "Y":"N";
@@ -99,19 +104,17 @@ public abstract class CreateFrom implements ICreateFrom
 			.append(DB.TO_CHAR("o.GrandTotal", DisplayType.Amount, Env.getAD_Language(Env.getCtx())));
 		//
 		String column = "ol.QtyDelivered";
-		String colBP = "o.C_BPartner_ID";
 		if (forInvoice)
-		{
 			column = "ol.QtyInvoiced";
-			colBP = "o.Bill_BPartner_ID";
-		}
-		StringBuffer sql = new StringBuffer("SELECT o.C_Order_ID,")
-			.append(display)
-			.append(" FROM C_Order o WHERE ")
-			.append(colBP)
-			.append("=? AND o.IsSOTrx=? AND o.DocStatus IN ('CL','CO') AND o.C_Order_ID IN (SELECT ol.C_Order_ID FROM C_OrderLine ol WHERE ol.QtyOrdered-")
-			.append(column)
-			.append("!=0) ");
+		StringBuffer sql = new StringBuffer("SELECT o.C_Order_ID,").append(display)
+			.append(" FROM C_Order o "
+			+ "WHERE o.C_BPartner_ID=? AND o.IsSOTrx=? AND o.DocStatus IN ('CL','CO')"
+			// Mpo, 18/7/2016
+			+ " AND o.User1_ID=?"
+			//
+			+ " AND o.C_Order_ID IN "
+				  + "(SELECT ol.C_Order_ID FROM C_OrderLine ol"
+				  + " WHERE ol.QtyOrdered - ").append(column).append(" != 0) ");
 		if(sameWarehouseOnly)
 		{
 			sql = sql.append(" AND o.M_Warehouse_ID=? ");
@@ -125,10 +128,16 @@ public abstract class CreateFrom implements ICreateFrom
 			pstmt = DB.prepareStatement(sql.toString(), null);
 			pstmt.setInt(1, C_BPartner_ID);
 			pstmt.setString(2, isSOTrxParam);
+			//MPo, 18/7/2016
+			pstmt.setInt(3, User1_ID);
+			//
 			if(sameWarehouseOnly)
 			{
 				//only active for material receipts
-				pstmt.setInt(3, getM_Warehouse_ID());
+				//MPo, 18/7/2016
+				//-pstmt.setInt(3, getM_Warehouse_ID());
+				pstmt.setInt(4, getM_Warehouse_ID());
+				//
 			}
 			rs = pstmt.executeQuery();
 			while (rs.next())
