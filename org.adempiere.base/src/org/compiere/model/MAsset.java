@@ -124,6 +124,11 @@ public class MAsset extends X_A_Asset
 		setValue(name);
 		setName(name);
 		setDescription(invoiceLine.getDescription());
+		//MPo, 14/8/18 Transfer PrCtr,CCtr and FArea from invoice line to asset master
+		setC_Activity_ID(invoiceLine.getC_Activity_ID()); //FArea
+		setUser1_ID(invoiceLine.getUser1_ID()); //PrCtr
+		setUser2_ID(invoiceLine.getUser2_ID()); //CCtr
+		//MPo
 	}
 
 	/**
