@@ -651,6 +651,14 @@ public abstract class InfoPanel extends Window implements EventListener<Event>, 
 			else
 			{
 		        value = rs.getString(colIndex);
+		        if (! rs.wasNull()) {
+					WEditor editor = editorMap.get(p_layout[col].getColSQL());
+					if (editor != null && editor.getGridField() != null && editor.getGridField().isLookup())
+					{
+						editor.setValue(value);
+						value = editor.getDisplay();
+					}
+		        }
 			}
 			data.add(value);
 		}
@@ -1812,10 +1820,13 @@ public abstract class InfoPanel extends Window implements EventListener<Event>, 
             	{
             		Listitem m_lastOnSelectItem = (Listitem) selectEvent.getReference();
             		m_lastSelectedIndex = m_lastOnSelectItem.getIndex();
-            		}
+           		}
+
+            	enableButtons();
+            	
             }else if (event.getTarget() == contentPanel && event.getName().equals("onAfterRender")){           	
-        	//IDEMPIERE-1334 at this event selected item from listBox and model is sync
-        	enableButtons();
+            	//IDEMPIERE-1334 at this event selected item from listBox and model is sync
+            	enableButtons();
             }
             else if (event.getTarget() == contentPanel && event.getName().equals(Events.ON_DOUBLE_CLICK))
             {
@@ -2134,6 +2145,7 @@ public abstract class InfoPanel extends Window implements EventListener<Event>, 
 						null);	
 					saveResultSelection(getInfoColumnIDFromProcess(processModalDialog.getAD_Process_ID()));
 					createT_Selection_InfoWindow(pInstanceID);
+					recordSelectedData.clear();
 				}else if (ProcessModalDialog.ON_WINDOW_CLOSE.equals(event.getName())){ 
 					if (processModalDialog.isCancel()){
 						//clear back 
@@ -2533,6 +2545,10 @@ public abstract class InfoPanel extends Window implements EventListener<Event>, 
 	
 	public Integer getFirstRowKey() {
 		return contentPanel.getFirstRowKey();
+	}
+
+	public Integer getRowKeyAt(int row) {
+		return contentPanel.getRowKeyAt(row);
 	}
 
 	/**
